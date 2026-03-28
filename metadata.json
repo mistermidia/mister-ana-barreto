@@ -1,0 +1,7 @@
+{
+  "name": "Ana Barreto Digital",
+  "description": "Landing page moderna e elegante para serviços de videomaker e social media.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

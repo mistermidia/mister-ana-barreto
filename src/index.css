@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #ABA595;
+  --color-brand-secondary: #B1B2A6;
+  --color-brand-text: #110D09;
+  --color-brand-detail: #5D5645;
+  --color-brand-accent: #8E7B54;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-text font-sans antialiased;
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary {
+  @apply bg-brand-accent text-white px-8 py-3 rounded-full font-medium transition-all hover:opacity-90 active:scale-95 shadow-lg;
+}
+
+@layer utilities {
+  @keyframes gradient-move {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-move 15s ease infinite;
+  }
+  .bg-mesh {
+    background-color: #ABA595;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(177, 178, 166, 0.3) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, rgba(142, 123, 84, 0.1) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, rgba(177, 178, 166, 0.3) 0, transparent 50%);
+  }
+}
+
+.section-padding {
+  @apply py-20 px-6 md:px-12 lg:px-24;
+}
