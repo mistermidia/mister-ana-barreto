@@ -23,11 +23,11 @@ export async function generateConceptImage(prompt: string, aspectRatio: "1:1" | 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
     const response = await ai.models.generateContent({
       model: 'gemini-3.1-flash-image-preview',
-      contents: [{ role: 'user', parts: [{ text: `Crie um conceito visual sofisticado e moderno para uma marca digital: ${prompt}` }] }],
+      contents: [{ role: 'user', parts: [{ text: `Crie um conceito visual sofisticado, moderno e em alta definição (1080p/2K) para uma marca digital: ${prompt}` }] }],
       config: {
         imageConfig: {
           aspectRatio: aspectRatio,
-          imageSize: "1K"
+          imageSize: "2K"
         }
       },
     });
@@ -40,6 +40,42 @@ export async function generateConceptImage(prompt: string, aspectRatio: "1:1" | 
     return null;
   } catch (error) {
     console.error("Error generating image:", error);
+    throw error;
+  }
+}
+
+export async function generateConceptVideo(prompt: string, aspectRatio: "16:9" | "9:16" = "16:9") {
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+    let operation = await ai.models.generateVideos({
+      model: 'veo-3.1-fast-generate-preview',
+      prompt: `Um vídeo cinematográfico, sofisticado e em alta definição (1080p) para uma marca digital: ${prompt}`,
+      config: {
+        numberOfVideos: 1,
+        resolution: '1080p',
+        aspectRatio: aspectRatio
+      }
+    });
+
+    while (!operation.done) {
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      operation = await ai.operations.getVideosOperation({ operation: operation });
+    }
+
+    const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
+    if (downloadLink) {
+      const response = await fetch(downloadLink, {
+        method: 'GET',
+        headers: {
+          'x-goog-api-key': process.env.GEMINI_API_KEY || '',
+        },
+      });
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    }
+    return null;
+  } catch (error) {
+    console.error("Error generating video:", error);
     throw error;
   }
 }

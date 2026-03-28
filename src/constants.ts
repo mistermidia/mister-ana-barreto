@@ -65,7 +65,7 @@ export const PORTFOLIO: PortfolioItem[] = [
     id: '4',
     title: 'Gestão de Marca Pessoal',
     category: 'social-media',
-    imageUrl: 'https://picsum.photos/seed/social2/800/600'
+    imageUrl: 'https://lh3.googleusercontent.com/d/1s74n7AbM3pXNdRDs-mr-xPkl5n3EQMpL'
   }
 ];
 

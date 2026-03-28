@@ -17,8 +17,17 @@ import {
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { SERVICES, TESTIMONIALS, PORTFOLIO, CONTACT_WHATSAPP, CLIENT_LOGOS, CONTACT_INSTAGRAM, CONTACT_EMAIL } from './constants';
-import { generateStrategyResponse, generateConceptImage } from './services/geminiService';
+import { generateStrategyResponse, generateConceptImage, generateConceptVideo } from './services/geminiService';
 import Markdown from 'react-markdown';
+
+declare global {
+  interface Window {
+    aistudio: {
+      hasSelectedApiKey: () => Promise<boolean>;
+      openSelectKey: () => Promise<void>;
+    };
+  }
+}
 
 type AspectRatio = "1:1" | "3:4" | "4:3" | "9:16" | "16:9";
 
@@ -162,12 +171,31 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState('');
-  const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'ai', content: string, type?: 'text' | 'image' }[]>([]);
+  const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'ai', content: string, type?: 'text' | 'image' | 'video' }[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio>("1:1");
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [isGeneratingVideo, setIsGeneratingVideo] = useState(false);
   const [showHeroVideo, setShowHeroVideo] = useState(true);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [hasApiKey, setHasApiKey] = useState(false);
+
+  useEffect(() => {
+    const checkApiKey = async () => {
+      if (window.aistudio) {
+        const selected = await window.aistudio.hasSelectedApiKey();
+        setHasApiKey(selected);
+      }
+    };
+    checkApiKey();
+  }, []);
+
+  const handleOpenKeyDialog = async () => {
+    if (window.aistudio) {
+      await window.aistudio.openSelectKey();
+      setHasApiKey(true);
+    }
+  };
 
   const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
@@ -185,6 +213,10 @@ export default function App() {
   const handleGenerateImage = async () => {
     if (!chatInput.trim()) return;
 
+    if (!hasApiKey) {
+      await handleOpenKeyDialog();
+    }
+
     const userMessage = chatInput;
     setChatInput('');
     setChatHistory(prev => [...prev, { role: 'user', content: `Gerar conceito visual (${selectedAspectRatio}): ${userMessage}`, type: 'text' }]);
@@ -197,6 +229,31 @@ export default function App() {
       setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar a imagem no momento.', type: 'text' }]);
     }
     setIsGeneratingImage(false);
+  };
+
+  const handleGenerateVideo = async () => {
+    if (!chatInput.trim()) return;
+
+    if (!hasApiKey) {
+      await handleOpenKeyDialog();
+    }
+
+    const userMessage = chatInput;
+    setChatInput('');
+    setChatHistory(prev => [...prev, { role: 'user', content: `Gerar vídeo 1080p (${selectedAspectRatio}): ${userMessage}`, type: 'text' }]);
+    setIsGeneratingVideo(true);
+
+    try {
+      const videoUrl = await generateConceptVideo(userMessage, selectedAspectRatio === "9:16" ? "9:16" : "16:9");
+      if (videoUrl) {
+        setChatHistory(prev => [...prev, { role: 'ai', content: videoUrl, type: 'video' }]);
+      } else {
+        setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar o vídeo no momento.', type: 'text' }]);
+      }
+    } catch (error) {
+      setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro ao gerar vídeo. Certifique-se de que sua chave de API tem suporte para geração de vídeo.', type: 'text' }]);
+    }
+    setIsGeneratingVideo(false);
   };
 
   const fadeInUp = {
@@ -688,6 +745,8 @@ export default function App() {
                   )}>
                     {msg.type === 'image' ? (
                       <img src={msg.content} alt="Conceito Visual" className="rounded-lg w-full h-auto" referrerPolicy="no-referrer" />
+                    ) : msg.type === 'video' ? (
+                      <video src={msg.content} controls className="rounded-lg w-full h-auto" />
                     ) : (
                       <div className="markdown-body">
                         <Markdown>{msg.content}</Markdown>
@@ -696,7 +755,7 @@ export default function App() {
                   </div>
                 </div>
               ))}
-              {(isTyping || isGeneratingImage) && (
+              {(isTyping || isGeneratingImage || isGeneratingVideo) && (
                 <div className="flex gap-1 p-2">
                   <div className="w-1.5 h-1.5 bg-brand-detail/40 rounded-full animate-bounce" />
                   <div className="w-1.5 h-1.5 bg-brand-detail/40 rounded-full animate-bounce [animation-delay:0.2s]" />
@@ -733,16 +792,24 @@ export default function App() {
                 />
                 <button 
                   onClick={handleGenerateImage}
-                  disabled={isGeneratingImage || isTyping || !chatInput.trim()}
-                  title="Gerar Conceito Visual"
+                  disabled={isGeneratingImage || isGeneratingVideo || isTyping || !chatInput.trim()}
+                  title="Gerar Conceito Visual (2K)"
                   className="w-10 h-10 bg-brand-detail text-white rounded-full flex items-center justify-center disabled:opacity-50"
                 >
                   {isGeneratingImage ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
                 </button>
                 <button 
-                  onClick={handleSendMessage}
-                  disabled={isTyping || isGeneratingImage || !chatInput.trim()}
+                  onClick={handleGenerateVideo}
+                  disabled={isGeneratingVideo || isGeneratingImage || isTyping || !chatInput.trim()}
+                  title="Gerar Vídeo (1080p)"
                   className="w-10 h-10 bg-brand-accent text-white rounded-full flex items-center justify-center disabled:opacity-50"
+                >
+                  {isGeneratingVideo ? <Loader2 size={18} className="animate-spin" /> : <Video size={18} />}
+                </button>
+                <button 
+                  onClick={handleSendMessage}
+                  disabled={isTyping || isGeneratingImage || isGeneratingVideo || !chatInput.trim()}
+                  className="w-10 h-10 bg-brand-text text-brand-bg rounded-full flex items-center justify-center disabled:opacity-50"
                 >
                   <Send size={18} />
                 </button>
