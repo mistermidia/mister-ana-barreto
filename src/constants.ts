@@ -44,9 +44,10 @@ export const TESTIMONIALS: Testimonial[] = [
 export const PORTFOLIO: PortfolioItem[] = [
   {
     id: '1',
-    title: 'Campanha de Verão',
+    title: 'Vídeo Institucional',
     category: 'videomaker',
-    imageUrl: 'https://picsum.photos/seed/video1/800/600'
+    imageUrl: 'https://picsum.photos/seed/video1/800/600',
+    videoUrl: 'https://drive.google.com/file/d/1l9ZbqK3b-Tc7E54unXj1SIAlIRC1ChUI/preview'
   },
   {
     id: '2',
@@ -56,7 +57,7 @@ export const PORTFOLIO: PortfolioItem[] = [
   },
   {
     id: '3',
-    title: 'Vídeo Institucional',
+    title: 'Campanha de Verão',
     category: 'videomaker',
     imageUrl: 'https://picsum.photos/seed/video2/800/600'
   },

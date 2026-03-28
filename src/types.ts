@@ -16,4 +16,5 @@ export interface PortfolioItem {
   title: string;
   category: 'videomaker' | 'social-media';
   imageUrl: string;
+  videoUrl?: string;
 }

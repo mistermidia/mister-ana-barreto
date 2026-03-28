@@ -166,6 +166,8 @@ export default function App() {
   const [isTyping, setIsTyping] = useState(false);
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio>("1:1");
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [showHeroVideo, setShowHeroVideo] = useState(true);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
@@ -308,17 +310,32 @@ export default function App() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="mt-20 w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-2xl relative group"
         >
-          <img 
-            src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&q=80&w=2000" 
-            alt="Ana Barreto Digital Workspace" 
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-brand-text/20 flex items-center justify-center">
-            <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30 cursor-pointer hover:scale-110 transition-transform">
-              <Video size={32} fill="currentColor" />
+          {showHeroVideo ? (
+            <div className="w-full h-full bg-black">
+              <iframe 
+                src="https://drive.google.com/file/d/1l9ZbqK3b-Tc7E54unXj1SIAlIRC1ChUI/preview" 
+                className="w-full h-full border-none"
+                allow="autoplay"
+              />
             </div>
-          </div>
+          ) : (
+            <>
+              <img 
+                src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&q=80&w=2000" 
+                alt="Ana Barreto Digital Workspace" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-brand-text/20 flex items-center justify-center">
+                <div 
+                  onClick={() => setShowHeroVideo(true)}
+                  className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30 cursor-pointer hover:scale-110 transition-transform"
+                >
+                  <Video size={32} fill="currentColor" />
+                </div>
+              </div>
+            </>
+          )}
         </motion.div>
       </section>
 
@@ -450,6 +467,7 @@ export default function App() {
                 key={item.id}
                 variants={fadeInUp}
                 whileHover={{ y: -10 }}
+                onClick={() => item.videoUrl && setActiveVideo(item.videoUrl)}
                 className="relative aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
               >
                 <img 
@@ -462,7 +480,10 @@ export default function App() {
                   <span className="text-xs uppercase tracking-widest text-brand-accent font-bold mb-2">
                     {item.category}
                   </span>
-                  <h4 className="text-lg font-bold">{item.title}</h4>
+                  <div className="flex justify-between items-center">
+                    <h4 className="text-lg font-bold">{item.title}</h4>
+                    {item.videoUrl && <Video size={20} className="text-brand-accent" />}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -548,6 +569,41 @@ export default function App() {
         </motion.div>
       </section>
 
+      {/* Video Modal */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-brand-text/90 backdrop-blur-xl flex items-center justify-center p-6"
+            onClick={() => setActiveVideo(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden relative shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setActiveVideo(null)}
+                className="absolute top-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all z-10"
+              >
+                <X size={24} />
+              </button>
+              <div className="w-full h-full bg-black">
+                <iframe 
+                  src={activeVideo}
+                  className="w-full h-full border-none"
+                  allow="autoplay"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Footer */}
       <footer className="py-12 px-6 md:px-12 border-t border-brand-detail/10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
@@ -561,7 +617,7 @@ export default function App() {
           </div>
 
           <p className="text-sm text-brand-detail">
-            © 2026 Ana Barreto Digital. Todos os direitos reservados.
+            © 2026 Mister Mídia Pro. Todos os direitos reservados.
           </p>
         </div>
       </footer>
