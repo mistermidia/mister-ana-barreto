@@ -93,6 +93,7 @@ export const PORTFOLIO: PortfolioItem[] = [
       'https://lh3.googleusercontent.com/d/1DMTsGUixf0o1_x_awzR4ou1k79tHZ1Wi',
       'https://lh3.googleusercontent.com/d/1yRXjrzb4NeaPOz_RcZf1PlGxmtZqUSt1'
     ],
+    videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/17.mp4',
     description: 'Construção e fortalecimento da marca pessoal, posicionando o cliente como autoridade no seu nicho. Inclui: Definição de identidade e posicionamento, Tom de voz e comunicação, Estratégia de presença digital, Direcionamento de conteúdo pessoal/profissional.'
   }
 ];
