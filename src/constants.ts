@@ -59,10 +59,7 @@ export const PORTFOLIO: PortfolioItem[] = [
       'https://lh3.googleusercontent.com/d/1aYySSr9ZspN8mqToKz_z8ciyM3ux_v-l',
       'https://lh3.googleusercontent.com/d/1NzbpVmnSy1ru6Zuf9ZNE8e4wSdKTKQsw',
       'https://lh3.googleusercontent.com/d/1GbZixCdXJESC_VcuQrbR63tiNIfQR08I',
-      'https://lh3.googleusercontent.com/d/1Dq8fQG4B0F3x7yUgZ1qzZeUY8VpmJyHb',
-      'https://lh3.googleusercontent.com/d/14VfrcIieL58S0f5zfF61jjlT3-iG271r',
-      'https://lh3.googleusercontent.com/d/1-0hgZPbW8mzhinZh_rXQAmvbS0sbKJPe',
-      'https://lh3.googleusercontent.com/d/19lbxKPn-WbWD4ePSnlAc7QZ0C5o7w94y'
+      'https://lh3.googleusercontent.com/d/1Dq8fQG4B0F3x7yUgZ1qzZeUY8VpmJyHb'
     ],
     videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Estrategia-de-conteudo.mp4',
     description: 'Desenvolvimento de uma estratégia de conteúdo focada em atrair, engajar e converter o público nas redes sociais. Inclui: Definição de público-alvo, Planejamento de conteúdo (calendário mensal), Criação de temas e linhas editoriais, Sugestões de formatos (reels, posts, stories).'
