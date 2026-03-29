@@ -47,7 +47,7 @@ export const PORTFOLIO: PortfolioItem[] = [
     title: 'Vídeo Institucional',
     category: 'videomaker',
     imageUrl: 'https://lh3.googleusercontent.com/d/1yfzIsVTlbCtd48O_1eKA14QI22SM6mGn',
-    videoUrl: 'https://drive.google.com/file/d/1l9ZbqK3b-Tc7E54unXj1SIAlIRC1ChUI/preview',
+    videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Institucional-AB.mp4',
     description: 'Produção de um vídeo institucional com o objetivo de apresentar a marca, seus valores, diferenciais e posicionamento no mercado. O vídeo será utilizado para fortalecer a presença digital e gerar conexão com o público-alvo. Entregas incluem: roteiro, captação de imagens, edição e versão final otimizada para redes sociais e site.'
   },
   {
@@ -64,7 +64,7 @@ export const PORTFOLIO: PortfolioItem[] = [
       'https://lh3.googleusercontent.com/d/1-0hgZPbW8mzhinZh_rXQAmvbS0sbKJPe',
       'https://lh3.googleusercontent.com/d/19lbxKPn-WbWD4ePSnlAc7QZ0C5o7w94y'
     ],
-    videoUrl: 'https://drive.google.com/file/d/1ocfX8B_10And8VMoW13FEIllTZmLd5_q/preview',
+    videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Estrategia-de-conteudo.mp4',
     description: 'Desenvolvimento de uma estratégia de conteúdo focada em atrair, engajar e converter o público nas redes sociais. Inclui: Definição de público-alvo, Planejamento de conteúdo (calendário mensal), Criação de temas e linhas editoriais, Sugestões de formatos (reels, posts, stories).'
   },
   {
@@ -79,7 +79,7 @@ export const PORTFOLIO: PortfolioItem[] = [
       'https://lh3.googleusercontent.com/d/1ElxZkCF9k6zTJlrsJUImJ6j_V_xFUiPx',
       'https://lh3.googleusercontent.com/d/1zga4o8-vuQb4vxk7_mb5iWlKKt2Kpd-G'
     ],
-    videoUrl: 'https://drive.google.com/file/d/10DjM23gWCiduHf7qdJ-HqTbG7R03ejQT/preview',
+    videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Verao-2.mp4',
     description: 'Criação de uma campanha sazonal voltada para aumentar o alcance e as vendas durante o período de verão. Inclui: Conceito criativo da campanha, Criação de peças visuais e copies, Planejamento de postagens, Sugestões de anúncios e promoções.'
   },
   {

@@ -303,7 +303,7 @@ export default function App() {
           {showHeroVideo ? (
             <div className="w-full h-full bg-black">
               <iframe 
-                src="https://drive.google.com/file/d/1l9ZbqK3b-Tc7E54unXj1SIAlIRC1ChUI/preview" 
+                src="https://empurion.com.br/wp-content/uploads/2026/03/Institucional-AB.mp4" 
                 className="w-full h-full border-none"
                 allow="autoplay"
               />
@@ -605,10 +605,12 @@ export default function App() {
                       )}>
                         {isVideoPlaying ? (
                           <div className="w-full h-full relative">
-                            <iframe 
-                              src={`${selectedItem.videoUrl}${selectedItem.videoUrl.includes('?') ? '&' : '?'}autoplay=1`}
-                              className="w-full h-full border-none"
-                              allow="autoplay; fullscreen"
+                            <video 
+                              src={selectedItem.videoUrl}
+                              className="w-full h-full"
+                              controls
+                              autoPlay
+                              playsInline
                             />
                           </div>
                         ) : (
