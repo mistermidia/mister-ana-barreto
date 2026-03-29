@@ -59,7 +59,17 @@ export const PORTFOLIO: PortfolioItem[] = [
     id: '3',
     title: 'Campanha de Verão',
     category: 'videomaker',
-    imageUrl: 'https://picsum.photos/seed/video2/800/600'
+    imageUrl: 'https://lh3.googleusercontent.com/d/160PrKGpjXTNmpP8lXwS5XVxKsMnt13D6',
+    images: [
+      'https://lh3.googleusercontent.com/d/160PrKGpjXTNmpP8lXwS5XVxKsMnt13D6',
+      'https://lh3.googleusercontent.com/d/1GEVad6wLznRjo5YDnozNEUwdvyzT7-ZE',
+      'https://lh3.googleusercontent.com/d/1ovnpKTF5SeqKbfLzPre-LqSxGwmtxh6L',
+      'https://lh3.googleusercontent.com/d/1ElxZkCF9k6zTJlrsJUImJ6j_V_xFUiPx',
+      'https://lh3.googleusercontent.com/d/1zga4o8-vuQb4vxk7_mb5iWlKKt2Kpd-G'
+    ],
+    videoUrl: 'https://docs.google.com/file/d/10DjM23gWCiduHf7qdJ-HqTbG7R03ejQT/preview',
+    videoPoster: 'https://lh3.googleusercontent.com/d/160PrKGpjXTNmpP8lXwS5XVxKsMnt13D6',
+    videoAspectRatio: '9:16'
   },
   {
     id: '4',

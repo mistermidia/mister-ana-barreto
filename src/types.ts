@@ -16,5 +16,8 @@ export interface PortfolioItem {
   title: string;
   category: 'videomaker' | 'social-media';
   imageUrl: string;
+  images?: string[];
   videoUrl?: string;
+  videoPoster?: string;
+  videoAspectRatio?: '16:9' | '9:16';
 }

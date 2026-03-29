@@ -19,6 +19,7 @@ import { cn } from './lib/utils';
 import { SERVICES, TESTIMONIALS, PORTFOLIO, CONTACT_WHATSAPP, CLIENT_LOGOS, CONTACT_INSTAGRAM, CONTACT_EMAIL } from './constants';
 import { generateStrategyResponse, generateConceptImage, generateConceptVideo } from './services/geminiService';
 import Markdown from 'react-markdown';
+import { PortfolioItem } from './types';
 
 declare global {
   interface Window {
@@ -177,7 +178,9 @@ export default function App() {
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [isGeneratingVideo, setIsGeneratingVideo] = useState(false);
   const [showHeroVideo, setShowHeroVideo] = useState(true);
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [hasApiKey, setHasApiKey] = useState(false);
 
   useEffect(() => {
@@ -524,7 +527,7 @@ export default function App() {
                 key={item.id}
                 variants={fadeInUp}
                 whileHover={{ y: -10 }}
-                onClick={() => item.videoUrl && setActiveVideo(item.videoUrl)}
+                onClick={() => setSelectedItem(item)}
                 className="relative aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
               >
                 <img 
@@ -539,7 +542,7 @@ export default function App() {
                   </span>
                   <div className="flex justify-between items-center">
                     <h4 className="text-lg font-bold">{item.title}</h4>
-                    {item.videoUrl && <Video size={20} className="text-brand-accent" />}
+                    {(item.videoUrl || (item.images && item.images.length > 0)) && <Video size={20} className="text-brand-accent" />}
                   </div>
                 </div>
               </motion.div>
@@ -626,35 +629,125 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* Video Modal */}
+      {/* Portfolio Modal */}
       <AnimatePresence>
-        {activeVideo && (
+        {selectedItem && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-brand-text/90 backdrop-blur-xl flex items-center justify-center p-6"
-            onClick={() => setActiveVideo(null)}
+            className="fixed inset-0 z-[100] bg-brand-text/95 backdrop-blur-2xl flex items-center justify-center p-4 md:p-10"
+            onClick={() => {
+              setSelectedItem(null);
+              setIsVideoPlaying(false);
+              setIsVideoLoading(true);
+            }}
           >
             <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden relative shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="w-full max-w-6xl max-h-[90vh] bg-white rounded-[2rem] overflow-hidden relative shadow-2xl flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
-                onClick={() => setActiveVideo(null)}
-                className="absolute top-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all z-10"
+                onClick={() => {
+                  setSelectedItem(null);
+                  setIsVideoPlaying(false);
+                  setIsVideoLoading(true);
+                }}
+                className="absolute top-6 right-6 w-12 h-12 bg-brand-text/10 backdrop-blur-md rounded-full flex items-center justify-center text-brand-text hover:bg-brand-text/20 transition-all z-50"
               >
                 <X size={24} />
               </button>
-              <div className="w-full h-full bg-black">
-                <iframe 
-                  src={activeVideo}
-                  className="w-full h-full border-none"
-                  allow="autoplay"
-                />
+
+              <div className="flex-1 overflow-y-auto p-8 md:p-12">
+                <div className="mb-8">
+                  <span className="text-xs uppercase tracking-[0.3em] text-brand-accent font-bold mb-2 block">
+                    {selectedItem.category}
+                  </span>
+                  <h3 className="text-3xl md:text-4xl font-bold text-brand-text">{selectedItem.title}</h3>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                  <div className="lg:col-span-2 space-y-8">
+                    {selectedItem.videoUrl && (
+                      <div className={cn(
+                        "bg-black rounded-3xl overflow-hidden shadow-lg border border-brand-detail/10 relative group",
+                        selectedItem.videoAspectRatio === '9:16' ? "aspect-[9/16] max-w-sm mx-auto" : "aspect-video w-full"
+                      )}>
+                        {isVideoPlaying ? (
+                          <div className="w-full h-full relative">
+                            <iframe 
+                              src={`${selectedItem.videoUrl}${selectedItem.videoUrl.includes('?') ? '&' : '?'}autoplay=1`}
+                              className="w-full h-full border-none"
+                              allow="autoplay; fullscreen"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-full h-full relative cursor-pointer" onClick={() => setIsVideoPlaying(true)}>
+                            <img 
+                              src={selectedItem.videoPoster || selectedItem.imageUrl} 
+                              alt={selectedItem.title} 
+                              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                              referrerPolicy="no-referrer"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30 group-hover:scale-110 transition-transform">
+                                <Video size={32} fill="currentColor" />
+                              </div>
+                            </div>
+                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-sm text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">
+                              Clique para assistir
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
+                    {selectedItem.images && selectedItem.images.length > 0 && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {selectedItem.images.map((img, idx) => (
+                          <motion.div 
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="rounded-2xl overflow-hidden shadow-md aspect-[4/5]"
+                          >
+                            <img 
+                              src={img} 
+                              alt={`${selectedItem.title} - ${idx + 1}`} 
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                              referrerPolicy="no-referrer"
+                            />
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="p-6 rounded-3xl bg-brand-bg/50 border border-brand-detail/10">
+                      <h4 className="font-bold mb-4 flex items-center gap-2">
+                        <Sparkles size={18} className="text-brand-accent" />
+                        Detalhes do Projeto
+                      </h4>
+                      <p className="text-sm text-brand-detail leading-relaxed">
+                        Este projeto foi desenvolvido com foco em elevar o posicionamento digital do cliente através de uma estética sofisticada e estratégica.
+                      </p>
+                    </div>
+                    
+                    <a 
+                      href={CONTACT_WHATSAPP} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-primary w-full flex items-center justify-center gap-2 py-4"
+                    >
+                      Solicitar orçamento similar <ChevronRight size={18} />
+                    </a>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
