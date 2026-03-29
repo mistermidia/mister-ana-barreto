@@ -522,12 +522,9 @@ export default function App() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Portfólio</h2>
               <p className="text-brand-bg/60 max-w-md">
-                Uma amostra dos projetos que transformaram a presença digital de nossos clientes.
+                Projetos que conectam estratégia, criatividade e resultados.
               </p>
             </div>
-            <button className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:gap-4 transition-all">
-              Ver tudo <ArrowRight size={16} />
-            </button>
           </motion.div>
           <motion.div 
             variants={staggerContainer}
@@ -748,7 +745,7 @@ export default function App() {
                         Detalhes do Projeto
                       </h4>
                       <p className="text-sm text-brand-detail leading-relaxed">
-                        Este projeto foi desenvolvido com foco em elevar o posicionamento digital do cliente através de uma estética sofisticada e estratégica.
+                        {selectedItem.description || 'Este projeto foi desenvolvido com foco em elevar o posicionamento digital do cliente através de uma estética sofisticada e estratégica.'}
                       </p>
                     </div>
                     
@@ -791,9 +788,14 @@ export default function App() {
         href={CONTACT_WHATSAPP} 
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[60]"
+        className="fixed bottom-6 right-6 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[60] overflow-hidden"
       >
-        <MessageCircle size={32} fill="currentColor" />
+        <img 
+          src="https://lh3.googleusercontent.com/d/1TPY6xpRkRDoH9UFtuxVPNGNF0iup-mmh" 
+          alt="WhatsApp" 
+          className="w-full h-full object-cover"
+          referrerPolicy="no-referrer"
+        />
       </a>
 
       {/* Strategy Assistant Toggle */}

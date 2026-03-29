@@ -20,4 +20,5 @@ export interface PortfolioItem {
   videoUrl?: string;
   videoPoster?: string;
   videoAspectRatio?: '16:9' | '9:16';
+  description?: string;
 }
