@@ -208,7 +208,7 @@ export default function App() {
     setChatHistory(prev => [...prev, { role: 'user', content: userMessage, type: 'text' }]);
     setIsTyping(true);
 
-    const response = await generateStrategyResponse(userMessage);
+    const response = await generateStrategyResponse(userMessage, chatHistory);
     setChatHistory(prev => [...prev, { role: 'ai', content: response || 'Erro ao gerar resposta.', type: 'text' }]);
     setIsTyping(false);
   };
@@ -225,11 +225,20 @@ export default function App() {
     setChatHistory(prev => [...prev, { role: 'user', content: `Gerar conceito visual (${selectedAspectRatio}): ${userMessage}`, type: 'text' }]);
     setIsGeneratingImage(true);
 
-    const imageUrl = await generateConceptImage(userMessage, selectedAspectRatio);
-    if (imageUrl) {
-      setChatHistory(prev => [...prev, { role: 'ai', content: imageUrl, type: 'image' }]);
-    } else {
-      setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar a imagem no momento.', type: 'text' }]);
+    try {
+      const imageUrl = await generateConceptImage(userMessage, selectedAspectRatio);
+      if (imageUrl) {
+        setChatHistory(prev => [...prev, { role: 'ai', content: imageUrl, type: 'image' }]);
+      } else {
+        setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar a imagem no momento.', type: 'text' }]);
+      }
+    } catch (error: any) {
+      console.error("Error generating image:", error);
+      if (error?.status === 403 || error?.message?.includes('403')) {
+        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro de permissão: Certifique-se de ter selecionado um projeto pago válido no seletor de chave de API.', type: 'text' }]);
+      } else {
+        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro ao gerar imagem. Tente novamente mais tarde.', type: 'text' }]);
+      }
     }
     setIsGeneratingImage(false);
   };
@@ -253,8 +262,13 @@ export default function App() {
       } else {
         setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar o vídeo no momento.', type: 'text' }]);
       }
-    } catch (error) {
-      setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro ao gerar vídeo. Certifique-se de que sua chave de API tem suporte para geração de vídeo.', type: 'text' }]);
+    } catch (error: any) {
+      console.error("Error generating video:", error);
+      if (error?.status === 403 || error?.message?.includes('403')) {
+        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro de permissão: Certifique-se de ter selecionado um projeto pago válido no seletor de chave de API.', type: 'text' }]);
+      } else {
+        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro ao gerar vídeo. Certifique-se de que sua chave de API tem suporte para geração de vídeo.', type: 'text' }]);
+      }
     }
     setIsGeneratingVideo(false);
   };
@@ -785,7 +799,7 @@ export default function App() {
       {/* Strategy Assistant Toggle */}
       <button 
         onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-6 left-6 w-16 h-16 bg-brand-text text-brand-bg rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[60]"
+        className="fixed bottom-6 left-6 w-16 h-16 bg-brand-text text-brand-bg rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[80]"
       >
         <Sparkles size={28} />
       </button>
@@ -858,22 +872,6 @@ export default function App() {
             </div>
 
             <div className="p-4 border-t border-brand-detail/10 bg-white space-y-3">
-              <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-                {(["1:1", "3:4", "4:3", "9:16", "16:9"] as AspectRatio[]).map(ratio => (
-                  <button
-                    key={ratio}
-                    onClick={() => setSelectedAspectRatio(ratio)}
-                    className={cn(
-                      "text-[10px] px-2 py-1 rounded-md border transition-all whitespace-nowrap",
-                      selectedAspectRatio === ratio 
-                        ? "bg-brand-accent text-white border-brand-accent" 
-                        : "border-brand-detail/20 text-brand-detail hover:bg-brand-detail/5"
-                    )}
-                  >
-                    {ratio}
-                  </button>
-                ))}
-              </div>
               <div className="flex gap-2">
                 <input 
                   type="text" 
@@ -881,27 +879,12 @@ export default function App() {
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   placeholder="Ideia ou conceito..."
+                  autoFocus
                   className="flex-1 bg-brand-bg/30 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-brand-accent outline-none"
                 />
                 <button 
-                  onClick={handleGenerateImage}
-                  disabled={isGeneratingImage || isGeneratingVideo || isTyping || !chatInput.trim()}
-                  title="Gerar Conceito Visual (2K)"
-                  className="w-10 h-10 bg-brand-detail text-white rounded-full flex items-center justify-center disabled:opacity-50"
-                >
-                  {isGeneratingImage ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
-                </button>
-                <button 
-                  onClick={handleGenerateVideo}
-                  disabled={isGeneratingVideo || isGeneratingImage || isTyping || !chatInput.trim()}
-                  title="Gerar Vídeo (1080p)"
-                  className="w-10 h-10 bg-brand-accent text-white rounded-full flex items-center justify-center disabled:opacity-50"
-                >
-                  {isGeneratingVideo ? <Loader2 size={18} className="animate-spin" /> : <Video size={18} />}
-                </button>
-                <button 
                   onClick={handleSendMessage}
-                  disabled={isTyping || isGeneratingImage || isGeneratingVideo || !chatInput.trim()}
+                  disabled={isTyping || !chatInput.trim()}
                   className="w-10 h-10 bg-brand-text text-brand-bg rounded-full flex items-center justify-center disabled:opacity-50"
                 >
                   <Send size={18} />

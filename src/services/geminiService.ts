@@ -1,13 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
 
-export async function generateStrategyResponse(prompt: string) {
+export async function generateStrategyResponse(prompt: string, history: { role: 'user' | 'ai', content: string }[]) {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+    
+    // Map history to Gemini format
+    const contents = history.map(msg => ({
+      role: msg.role === 'ai' ? 'model' : 'user',
+      parts: [{ text: msg.content }]
+    }));
+    
+    // Add the new prompt
+    contents.push({ role: 'user', parts: [{ text: prompt }] });
+
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      contents: contents,
       config: {
-        systemInstruction: "Você é um assistente de estratégia digital para a Ana Barreto Digital. Ajude clientes com ideias de conteúdo, roteiros de vídeo e dicas de engajamento. Seja profissional, criativo e sofisticado. Se o usuário pedir para ver um conceito visual ou imagem, sugira que ele use a ferramenta de geração de imagem (ícone de câmera/imagem).",
+        systemInstruction: "Você é um assistente de estratégia digital para a Ana Barreto Digital. Ajude clientes com ideias de conteúdo, roteiros de vídeo e dicas de engajamento. Use uma linguagem simples, clara, direta e muito fácil de entender. Evite termos técnicos complicados. Seja amigável e prestativo. Cumprimente o usuário apenas na primeira mensagem da conversa. Não repita saudações ou apresentações em mensagens subsequentes.",
         tools: [{ googleSearch: {} }]
       }
     });
