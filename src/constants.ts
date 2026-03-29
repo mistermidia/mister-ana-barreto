@@ -46,14 +46,24 @@ export const PORTFOLIO: PortfolioItem[] = [
     id: '1',
     title: 'Vídeo Institucional',
     category: 'videomaker',
-    imageUrl: 'https://picsum.photos/seed/video1/800/600',
+    imageUrl: 'https://lh3.googleusercontent.com/d/1yfzIsVTlbCtd48O_1eKA14QI22SM6mGn',
     videoUrl: 'https://drive.google.com/file/d/1l9ZbqK3b-Tc7E54unXj1SIAlIRC1ChUI/preview'
   },
   {
     id: '2',
     title: 'Estratégia de Conteúdo',
     category: 'social-media',
-    imageUrl: 'https://picsum.photos/seed/social1/800/600'
+    imageUrl: 'https://lh3.googleusercontent.com/d/1aYySSr9ZspN8mqToKz_z8ciyM3ux_v-l',
+    images: [
+      'https://lh3.googleusercontent.com/d/1aYySSr9ZspN8mqToKz_z8ciyM3ux_v-l',
+      'https://lh3.googleusercontent.com/d/1NzbpVmnSy1ru6Zuf9ZNE8e4wSdKTKQsw',
+      'https://lh3.googleusercontent.com/d/1GbZixCdXJESC_VcuQrbR63tiNIfQR08I',
+      'https://lh3.googleusercontent.com/d/1Dq8fQG4B0F3x7yUgZ1qzZeUY8VpmJyHb',
+      'https://lh3.googleusercontent.com/d/14VfrcIieL58S0f5zfF61jjlT3-iG271r',
+      'https://lh3.googleusercontent.com/d/1-0hgZPbW8mzhinZh_rXQAmvbS0sbKJPe',
+      'https://lh3.googleusercontent.com/d/19lbxKPn-WbWD4ePSnlAc7QZ0C5o7w94y'
+    ],
+    videoUrl: 'https://drive.google.com/file/d/1ocfX8B_10And8VMoW13FEIllTZmLd5_q/preview'
   },
   {
     id: '3',
@@ -67,15 +77,19 @@ export const PORTFOLIO: PortfolioItem[] = [
       'https://lh3.googleusercontent.com/d/1ElxZkCF9k6zTJlrsJUImJ6j_V_xFUiPx',
       'https://lh3.googleusercontent.com/d/1zga4o8-vuQb4vxk7_mb5iWlKKt2Kpd-G'
     ],
-    videoUrl: 'https://docs.google.com/file/d/10DjM23gWCiduHf7qdJ-HqTbG7R03ejQT/preview',
-    videoPoster: 'https://lh3.googleusercontent.com/d/160PrKGpjXTNmpP8lXwS5XVxKsMnt13D6',
-    videoAspectRatio: '9:16'
+    videoUrl: 'https://drive.google.com/file/d/10DjM23gWCiduHf7qdJ-HqTbG7R03ejQT/preview'
   },
   {
     id: '4',
     title: 'Gestão de Marca Pessoal',
     category: 'social-media',
-    imageUrl: 'https://lh3.googleusercontent.com/d/1s74n7AbM3pXNdRDs-mr-xPkl5n3EQMpL'
+    imageUrl: 'https://lh3.googleusercontent.com/d/1s74n7AbM3pXNdRDs-mr-xPkl5n3EQMpL',
+    images: [
+      'https://lh3.googleusercontent.com/d/1s74n7AbM3pXNdRDs-mr-xPkl5n3EQMpL',
+      'https://lh3.googleusercontent.com/d/1GvsjWiwHWxtba-xGhCbBrF8fa03cMYDw',
+      'https://lh3.googleusercontent.com/d/1DMTsGUixf0o1_x_awzR4ou1k79tHZ1Wi',
+      'https://lh3.googleusercontent.com/d/1yRXjrzb4NeaPOz_RcZf1PlGxmtZqUSt1'
+    ]
   }
 ];
 
