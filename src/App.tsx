@@ -10,15 +10,10 @@ import {
   ArrowRight,
   Menu,
   X,
-  Sparkles,
-  Send,
-  Image as ImageIcon,
-  Loader2
+  Sparkles
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { SERVICES, TESTIMONIALS, PORTFOLIO, CONTACT_WHATSAPP, CLIENT_LOGOS, CONTACT_INSTAGRAM, CONTACT_EMAIL } from './constants';
-import { generateStrategyResponse, generateConceptImage, generateConceptVideo } from './services/geminiService';
-import Markdown from 'react-markdown';
 import { PortfolioItem } from './types';
 
 declare global {
@@ -170,13 +165,7 @@ const BackgroundIcons = () => {
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatInput, setChatInput] = useState('');
-  const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'ai', content: string, type?: 'text' | 'image' | 'video' }[]>([]);
-  const [isTyping, setIsTyping] = useState(false);
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio>("1:1");
-  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
-  const [isGeneratingVideo, setIsGeneratingVideo] = useState(false);
   const [showHeroVideo, setShowHeroVideo] = useState(true);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -198,79 +187,6 @@ export default function App() {
       await window.aistudio.openSelectKey();
       setHasApiKey(true);
     }
-  };
-
-  const handleSendMessage = async () => {
-    if (!chatInput.trim()) return;
-
-    const userMessage = chatInput;
-    setChatInput('');
-    setChatHistory(prev => [...prev, { role: 'user', content: userMessage, type: 'text' }]);
-    setIsTyping(true);
-
-    const response = await generateStrategyResponse(userMessage, chatHistory);
-    setChatHistory(prev => [...prev, { role: 'ai', content: response || 'Erro ao gerar resposta.', type: 'text' }]);
-    setIsTyping(false);
-  };
-
-  const handleGenerateImage = async () => {
-    if (!chatInput.trim()) return;
-
-    if (!hasApiKey) {
-      await handleOpenKeyDialog();
-    }
-
-    const userMessage = chatInput;
-    setChatInput('');
-    setChatHistory(prev => [...prev, { role: 'user', content: `Gerar conceito visual (${selectedAspectRatio}): ${userMessage}`, type: 'text' }]);
-    setIsGeneratingImage(true);
-
-    try {
-      const imageUrl = await generateConceptImage(userMessage, selectedAspectRatio);
-      if (imageUrl) {
-        setChatHistory(prev => [...prev, { role: 'ai', content: imageUrl, type: 'image' }]);
-      } else {
-        setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar a imagem no momento.', type: 'text' }]);
-      }
-    } catch (error: any) {
-      console.error("Error generating image:", error);
-      if (error?.status === 403 || error?.message?.includes('403')) {
-        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro de permissão: Certifique-se de ter selecionado um projeto pago válido no seletor de chave de API.', type: 'text' }]);
-      } else {
-        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro ao gerar imagem. Tente novamente mais tarde.', type: 'text' }]);
-      }
-    }
-    setIsGeneratingImage(false);
-  };
-
-  const handleGenerateVideo = async () => {
-    if (!chatInput.trim()) return;
-
-    if (!hasApiKey) {
-      await handleOpenKeyDialog();
-    }
-
-    const userMessage = chatInput;
-    setChatInput('');
-    setChatHistory(prev => [...prev, { role: 'user', content: `Gerar vídeo 1080p (${selectedAspectRatio}): ${userMessage}`, type: 'text' }]);
-    setIsGeneratingVideo(true);
-
-    try {
-      const videoUrl = await generateConceptVideo(userMessage, selectedAspectRatio === "9:16" ? "9:16" : "16:9");
-      if (videoUrl) {
-        setChatHistory(prev => [...prev, { role: 'ai', content: videoUrl, type: 'video' }]);
-      } else {
-        setChatHistory(prev => [...prev, { role: 'ai', content: 'Desculpe, não consegui gerar o vídeo no momento.', type: 'text' }]);
-      }
-    } catch (error: any) {
-      console.error("Error generating video:", error);
-      if (error?.status === 403 || error?.message?.includes('403')) {
-        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro de permissão: Certifique-se de ter selecionado um projeto pago válido no seletor de chave de API.', type: 'text' }]);
-      } else {
-        setChatHistory(prev => [...prev, { role: 'ai', content: 'Erro ao gerar vídeo. Certifique-se de que sua chave de API tem suporte para geração de vídeo.', type: 'text' }]);
-      }
-    }
-    setIsGeneratingVideo(false);
   };
 
   const fadeInUp = {
@@ -792,105 +708,6 @@ export default function App() {
       >
         <MessageCircle size={32} />
       </a>
-
-      {/* Strategy Assistant Toggle */}
-      <button 
-        onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-6 left-6 w-16 h-16 bg-brand-text text-brand-bg rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[80]"
-      >
-        <Sparkles size={28} />
-      </button>
-
-      {/* Strategy Assistant Chat */}
-      <AnimatePresence>
-        {isChatOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: 100, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 left-6 w-[90vw] md:w-[400px] h-[500px] bg-white rounded-3xl shadow-2xl z-[70] flex flex-col overflow-hidden border border-brand-detail/10"
-          >
-            <div className="p-6 bg-brand-text text-brand-bg flex justify-between items-center">
-              <div>
-                <h3 className="font-bold">Assistente de Estratégia</h3>
-                <p className="text-xs opacity-70">Powered by Gemini AI</p>
-              </div>
-              <button onClick={() => setIsChatOpen(false)}><X size={20} /></button>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-brand-bg/10">
-              {chatHistory.length === 0 && (
-                <div className="text-center py-10 text-brand-detail">
-                  <Sparkles className="mx-auto mb-4 opacity-20" size={48} />
-                  <p className="text-sm">Olá! Sou o assistente da Ana. <br />Como posso ajudar na sua estratégia hoje?</p>
-                  <div className="mt-6 flex flex-wrap gap-2 justify-center">
-                    {['Ideias de Reels', 'Roteiro de vídeo', 'Dicas de engajamento'].map(tip => (
-                      <button 
-                        key={tip}
-                        onClick={() => setChatInput(tip)}
-                        className="text-xs px-3 py-1.5 rounded-full border border-brand-detail/20 hover:bg-brand-detail/5"
-                      >
-                        {tip}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {chatHistory.map((msg, i) => (
-                <div key={i} className={cn(
-                  "flex flex-col max-w-[85%]",
-                  msg.role === 'user' ? "ml-auto items-end" : "mr-auto items-start"
-                )}>
-                  <div className={cn(
-                    "p-4 rounded-2xl text-sm",
-                    msg.role === 'user' 
-                      ? "bg-brand-accent text-white rounded-tr-none" 
-                      : "bg-white border border-brand-detail/10 text-brand-text rounded-tl-none shadow-sm"
-                  )}>
-                    {msg.type === 'image' ? (
-                      <img src={msg.content} alt="Conceito Visual" className="rounded-lg w-full h-auto" referrerPolicy="no-referrer" />
-                    ) : msg.type === 'video' ? (
-                      <video src={msg.content} controls className="rounded-lg w-full h-auto" />
-                    ) : (
-                      <div className="markdown-body">
-                        <Markdown>{msg.content}</Markdown>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-              {(isTyping || isGeneratingImage || isGeneratingVideo) && (
-                <div className="flex gap-1 p-2">
-                  <div className="w-1.5 h-1.5 bg-brand-detail/40 rounded-full animate-bounce" />
-                  <div className="w-1.5 h-1.5 bg-brand-detail/40 rounded-full animate-bounce [animation-delay:0.2s]" />
-                  <div className="w-1.5 h-1.5 bg-brand-detail/40 rounded-full animate-bounce [animation-delay:0.4s]" />
-                </div>
-              )}
-            </div>
-
-            <div className="p-4 border-t border-brand-detail/10 bg-white space-y-3">
-              <div className="flex gap-2">
-                <input 
-                  type="text" 
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="Ideia ou conceito..."
-                  autoFocus
-                  className="flex-1 bg-brand-bg/30 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-brand-accent outline-none"
-                />
-                <button 
-                  onClick={handleSendMessage}
-                  disabled={isTyping || !chatInput.trim()}
-                  className="w-10 h-10 bg-brand-text text-brand-bg rounded-full flex items-center justify-center disabled:opacity-50"
-                >
-                  <Send size={18} />
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
