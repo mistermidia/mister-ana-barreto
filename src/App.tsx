@@ -706,12 +706,7 @@ export default function App() {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[60]"
       >
-        <img 
-          src="https://lh3.googleusercontent.com/d/1TPY6xpRkRDoH9UFtuxVPNGNF0iup-mmh" 
-          alt="WhatsApp" 
-          className="w-8 h-8" 
-          referrerPolicy="no-referrer"
-        />
+        <MessageCircle size={32} />
       </a>
     </div>
   );
