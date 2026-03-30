@@ -6,9 +6,9 @@ export const SERVICES: Service[] = [
     description: 'Produção de vídeos profissionais que capturam a essência da sua marca.',
     icon: 'Video',
     items: [
-      'Produção de vídeos profissionais',
-      'Reels e vídeos estratégicos',
-      'Conteúdos institucionais'
+      'Story Maker',
+      'Social mídia',
+      'Gestão e criação de canais no WhatsApp'
     ]
   },
   {
