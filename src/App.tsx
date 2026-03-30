@@ -655,7 +655,7 @@ export default function App() {
           </div>
 
           <p className="text-sm text-brand-detail">
-            © 2026 Mister Mídia Pro. Todos os direitos reservados.
+            © 2026 <a href="https://wa.me/5521982986761" target="_blank" rel="noopener noreferrer" className="hover:text-brand-accent transition-colors">Mister Mídia Pro</a>. Todos os direitos reservados.
           </p>
         </div>
       </footer>
