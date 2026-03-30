@@ -129,39 +129,6 @@ const LogoMarquee = () => {
   );
 };
 
-const BackgroundIcons = () => {
-  const icons = [Video, Share2, MessageCircle, Sparkles, Instagram];
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.03] z-0">
-      {[...Array(12)].map((_, i) => {
-        const Icon = icons[i % icons.length];
-        return (
-          <motion.div
-            key={i}
-            initial={{ 
-              x: Math.random() * 100 + "%", 
-              y: Math.random() * 100 + "%",
-              rotate: Math.random() * 360,
-              scale: Math.random() * 0.5 + 0.5
-            }}
-            animate={{ 
-              y: [null, (Math.random() - 0.5) * 100 + "%"],
-              rotate: [null, Math.random() * 360]
-            }}
-            transition={{ 
-              duration: Math.random() * 20 + 20, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
-            className="absolute"
-          >
-            <Icon size={Math.random() * 40 + 40} />
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-};
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -205,7 +172,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative bg-mesh animate-gradient">
-      <BackgroundIcons />
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 bg-brand-bg/80 backdrop-blur-md border-b border-brand-detail/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
