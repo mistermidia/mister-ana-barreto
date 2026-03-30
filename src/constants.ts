@@ -31,12 +31,12 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: 'Valéria Velloso',
-    role: 'Valéria Velloso Casa de Beleza',
+    role: 'Valéria Velloso_Casa de Belela',
     content: 'Estratégia impecável. O engajamento da nossa marca cresceu 40% em apenas dois meses.'
   },
   {
-    name: 'MC',
-    role: 'Mundo dos Colecionavéis',
+    name: 'Mundo dos Colecionáveis',
+    role: 'Mundo dos Colecionáveis',
     content: 'A Ana entende exatamente o que o público quer ver. Recomendo de olhos fechados!'
   }
 ];
