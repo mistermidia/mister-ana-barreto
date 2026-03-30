@@ -10,7 +10,10 @@ import {
   ArrowRight,
   Menu,
   X,
-  Sparkles
+  Sparkles,
+  Palette,
+  ShoppingBag,
+  MessageSquare
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { SERVICES, TESTIMONIALS, PORTFOLIO, CONTACT_WHATSAPP, CLIENT_LOGOS, CONTACT_INSTAGRAM, CONTACT_EMAIL } from './constants';
@@ -367,7 +370,11 @@ export default function App() {
                 className="p-10 rounded-3xl bg-white/40 border border-brand-detail/5 hover:shadow-xl transition-all group"
               >
                 <div className="w-14 h-14 bg-brand-accent/10 rounded-2xl flex items-center justify-center text-brand-accent mb-6 group-hover:scale-110 transition-transform">
-                  {service.icon === 'Video' ? <Video size={28} /> : <Share2 size={28} />}
+                  {service.icon === 'Video' && <Video size={28} />}
+                  {service.icon === 'Share2' && <Share2 size={28} />}
+                  {service.icon === 'Palette' && <Palette size={28} />}
+                  {service.icon === 'ShoppingBag' && <ShoppingBag size={28} />}
+                  {service.icon === 'MessageSquare' && <MessageSquare size={28} />}
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
                 <p className="text-brand-detail mb-8 leading-relaxed">

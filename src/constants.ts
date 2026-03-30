@@ -6,11 +6,9 @@ export const SERVICES: Service[] = [
     description: 'Produção de vídeos profissionais que capturam a essência da sua marca.',
     icon: 'Video',
     items: [
-      'Story Maker',
-      'Social media',
-      'Branding',
-      'Consultoria de ecommercer',
-      'WhatsApp consultoria'
+      'Produção de vídeos profissionais',
+      'Reels e vídeos estratégicos',
+      'Conteudo institucionais'
     ]
   },
   {
@@ -21,6 +19,36 @@ export const SERVICES: Service[] = [
       'Planejamento de conteúdo',
       'Gestão de redes sociais',
       'Crescimento orgânico'
+    ]
+  },
+  {
+    title: 'Branding',
+    description: 'Construção de identidade visual e posicionamento de marca.',
+    icon: 'Palette',
+    items: [
+      'Identidade visual',
+      'Posicionamento de marca',
+      'Manual da marca'
+    ]
+  },
+  {
+    title: 'Consultoria de ecommercer',
+    description: 'Estratégias para otimizar e escalar suas vendas online.',
+    icon: 'ShoppingBag',
+    items: [
+      'Otimização de loja',
+      'Estratégias de vendas',
+      'Análise de métricas'
+    ]
+  },
+  {
+    title: 'WhatsApp consultoria',
+    description: 'Gestão e otimização do seu atendimento via WhatsApp.',
+    icon: 'MessageSquare',
+    items: [
+      'Configuração de canais',
+      'Estratégia de atendimento',
+      'Automação'
     ]
   }
 ];
