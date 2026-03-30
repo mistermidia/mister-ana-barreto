@@ -336,10 +336,6 @@ export default function App() {
             </div>
             <div className="mt-10 flex gap-6">
               <div className="flex flex-col">
-                <span className="text-3xl font-bold text-brand-text">50+</span>
-                <span className="text-xs uppercase tracking-wider text-brand-detail">Clientes Atendidos</span>
-              </div>
-              <div className="flex flex-col">
                 <span className="text-3xl font-bold text-brand-text">200+</span>
                 <span className="text-xs uppercase tracking-wider text-brand-detail">Vídeos Produzidos</span>
               </div>
