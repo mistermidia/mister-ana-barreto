@@ -300,8 +300,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <SwipeReveal 
-              img1="https://lh3.googleusercontent.com/d/1GQWOSqUC1Kr8uKQGatD8KhSyAjcNdyKp"
-              img2="https://lh3.googleusercontent.com/d/1nLLzHKc49lG740WdgwUVMtEjsP9tOhtz"
+              img1="https://lh3.googleusercontent.com/d/13vTixIXrDKWLIApIFdPjbu0WB5Y_TPqU"
+              img2="https://lh3.googleusercontent.com/d/1nLLzHKc49lG740WdgwUVMtEjsP9tOhtz?v=2"
             />
             
             <motion.div 

@@ -7,8 +7,10 @@ export const SERVICES: Service[] = [
     icon: 'Video',
     items: [
       'Story Maker',
-      'Social mídia',
-      'Gestão e criação de canais no WhatsApp'
+      'Social media',
+      'Branding',
+      'Consultoria de ecommercer',
+      'WhatsApp consultoria'
     ]
   },
   {
