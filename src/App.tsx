@@ -325,13 +325,10 @@ export default function App() {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Sobre Ana Barreto</h2>
             <div className="space-y-4 text-brand-detail leading-relaxed">
               <p>
-                Com anos de experiência no mercado digital, meu foco é humanizar marcas e elevar o patamar visual de pequenos e médios negócios.
+                Com mais de 20 anos de experiência no varejo e mais de 10 no Ecommerce, tenho à expertise do que conecta e faz o cliente comprar.
               </p>
               <p>
-                Acredito que cada marca tem uma história única que merece ser contada com excelência. Não entrego apenas vídeos ou posts, entrego posicionamento e autoridade.
-              </p>
-              <p>
-                Minha abordagem une a sensibilidade estética do videomaker com a visão analítica do social media, garantindo que cada conteúdo tenha um propósito claro.
+                Meu foco é te fazer crescer e que seu negócio caminhe, voltada para pequenos e médios empreendedores e empresários eu te escuto e junto fazemos o jogo virar.
               </p>
             </div>
             <div className="mt-10 flex gap-6">
