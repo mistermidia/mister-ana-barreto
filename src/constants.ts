@@ -2,7 +2,7 @@ import { Service, Testimonial, PortfolioItem } from './types';
 
 export const SERVICES: Service[] = [
   {
-    title: 'Videomaker',
+    title: 'Story Maker',
     description: 'Produção de vídeos profissionais que capturam a essência da sua marca.',
     icon: 'Video',
     items: [
