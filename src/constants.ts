@@ -35,7 +35,7 @@ export const TESTIMONIALS: Testimonial[] = [
     content: 'Estratégia impecável. O engajamento da nossa marca cresceu 40% em apenas dois meses.'
   },
   {
-    name: 'Marcos Silva',
+    name: 'MC',
     role: 'Mundo dos Colecionavéis',
     content: 'A Ana entende exatamente o que o público quer ver. Recomendo de olhos fechados!'
   }
