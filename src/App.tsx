@@ -114,16 +114,42 @@ const LogoMarquee = () => {
   return (
     <div className="mt-24 overflow-hidden relative">
       <div className="flex gap-12 animate-marquee whitespace-nowrap">
-        {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
-          <div key={i} className="flex-shrink-0 w-32 h-16 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img 
-              src={logo} 
-              alt="Client Logo" 
-              className="max-w-full max-h-full object-contain"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        ))}
+        {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => {
+          const targetMap: Record<string, string> = {
+            'https://lh3.googleusercontent.com/d/1DIWQxnzbG3BOoDEyVkGzPsyT7w19eyGT': 'https://www.instagram.com/beeu_se/',
+            'https://lh3.googleusercontent.com/d/1Jt94F9FZngcMhbJ8TeXR222CrfvczO1p': 'https://www.instagram.com/loji.nhadavovo/',
+            'https://lh3.googleusercontent.com/d/1GwqiNeCvd8zVc4j30rJVc9t_OIvgs4w5': 'https://www.instagram.com/alfa_restaurante.ofc/',
+            'https://lh3.googleusercontent.com/d/1FFPiP8bvN3uzU7pj2X3pfCH10_UBjSwW': 'https://www.instagram.com/mundodoscolecionaveis/',
+            'https://lh3.googleusercontent.com/d/10VZedXZc_mUE-8ZU91W054rOqfDFEIzd': 'https://www.instagram.com/studiotatitavares/',
+            'https://lh3.googleusercontent.com/d/1wTYByVlTk7P7yvvmJY7tRjUBzwrC3G3h': 'https://www.instagram.com/valeriavelloso_casadebeleza/'
+          };
+          
+          const targetUrl = targetMap[logo];
+          const content = (
+            <div className="flex-shrink-0 w-32 h-16 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+              <img 
+                src={logo} 
+                alt="Client Logo" 
+                className="max-w-full max-h-full object-contain"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          );
+
+          return targetUrl ? (
+            <a 
+              key={i} 
+              href={targetUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              {content}
+            </a>
+          ) : (
+            <div key={i}>{content}</div>
+          );
+        })}
       </div>
       {/* Gradient overlays for smooth fade */}
       <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-brand-bg to-transparent z-10" />
