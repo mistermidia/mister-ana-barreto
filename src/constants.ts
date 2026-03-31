@@ -84,29 +84,24 @@ export const PORTFOLIO: PortfolioItem[] = [
     id: '2',
     title: 'Estratégia de Conteúdo',
     category: 'social-media',
-    imageUrl: 'https://lh3.googleusercontent.com/d/1aYySSr9ZspN8mqToKz_z8ciyM3ux_v-l',
+    imageUrl: 'https://lh3.googleusercontent.com/d/1bXbi5epnvCwI-EV1zxRyeYT2OCPZbR9g',
     images: [
-      'https://lh3.googleusercontent.com/d/1aYySSr9ZspN8mqToKz_z8ciyM3ux_v-l',
-      'https://lh3.googleusercontent.com/d/1NzbpVmnSy1ru6Zuf9ZNE8e4wSdKTKQsw',
-      'https://lh3.googleusercontent.com/d/1GbZixCdXJESC_VcuQrbR63tiNIfQR08I',
-      'https://lh3.googleusercontent.com/d/1Dq8fQG4B0F3x7yUgZ1qzZeUY8VpmJyHb'
+      'https://lh3.googleusercontent.com/d/1bXbi5epnvCwI-EV1zxRyeYT2OCPZbR9g',
+      'https://lh3.googleusercontent.com/d/1btxtAZoxAgyF6jIEyJjybwqnGEgvRlKl',
+      'https://lh3.googleusercontent.com/d/17Xs_hscuC_963wZ7fter4_qPtyRh7ysQ'
     ],
-    videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Estrategia-de-conteudo.mp4',
     description: 'Desenvolvimento de uma estratégia de conteúdo focada em atrair, engajar e converter o público nas redes sociais. Inclui: Definição de público-alvo, Planejamento de conteúdo (calendário mensal), Criação de temas e linhas editoriais, Sugestões de formatos (reels, posts, stories).'
   },
   {
     id: '3',
-    title: 'Campanha de Verão',
+    title: 'Campanhas Sazonais',
     category: 'videomaker',
-    imageUrl: 'https://lh3.googleusercontent.com/d/160PrKGpjXTNmpP8lXwS5XVxKsMnt13D6',
+    imageUrl: 'https://lh3.googleusercontent.com/d/1p4rt2yDgZQL6jktBUxA6iBG2X7-HAcvI',
     images: [
-      'https://lh3.googleusercontent.com/d/160PrKGpjXTNmpP8lXwS5XVxKsMnt13D6',
-      'https://lh3.googleusercontent.com/d/1GEVad6wLznRjo5YDnozNEUwdvyzT7-ZE',
-      'https://lh3.googleusercontent.com/d/1ovnpKTF5SeqKbfLzPre-LqSxGwmtxh6L',
-      'https://lh3.googleusercontent.com/d/1ElxZkCF9k6zTJlrsJUImJ6j_V_xFUiPx',
-      'https://lh3.googleusercontent.com/d/1zga4o8-vuQb4vxk7_mb5iWlKKt2Kpd-G'
+      'https://lh3.googleusercontent.com/d/1p4rt2yDgZQL6jktBUxA6iBG2X7-HAcvI',
+      'https://lh3.googleusercontent.com/d/1axrhjjEck5lBri7iyHMtQ-s2CUPqz_dq',
+      'https://lh3.googleusercontent.com/d/18JFgnkmw7x9v45SFq-3nIZEzO2rL_6Zv'
     ],
-    videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Verao-2.mp4',
     description: 'Criação de uma campanha sazonal voltada para aumentar o alcance e as vendas durante o período de verão. Inclui: Conceito criativo da campanha, Criação de peças visuais e copies, Planejamento de postagens, Sugestões de anúncios e promoções.'
   },
   {
@@ -133,7 +128,6 @@ export const CLIENT_LOGOS = [
   'https://lh3.googleusercontent.com/d/1GwqiNeCvd8zVc4j30rJVc9t_OIvgs4w5',
   'https://lh3.googleusercontent.com/d/1Jt94F9FZngcMhbJ8TeXR222CrfvczO1p',
   'https://lh3.googleusercontent.com/d/1DIWQxnzbG3BOoDEyVkGzPsyT7w19eyGT',
-  'https://lh3.googleusercontent.com/d/191wUF5_JCh_bcPqPj2HjsDa2GbwsjmyL',
   'https://lh3.googleusercontent.com/d/10VZedXZc_mUE-8ZU91W054rOqfDFEIzd',
   'https://lh3.googleusercontent.com/d/1wTYByVlTk7P7yvvmJY7tRjUBzwrC3G3h'
 ];
