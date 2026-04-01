@@ -209,7 +209,9 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             className="text-xl font-bold tracking-tighter text-brand-text"
           >
-            ANA BARRETO <span className="font-light">DIGITAL</span>
+            <a href="#" className="hover:opacity-80 transition-opacity">
+              ANA BARRETO <span className="font-light">DIGITAL</span>
+            </a>
           </motion.div>
 
           {/* Desktop Menu */}
@@ -679,7 +681,9 @@ export default function App() {
       <footer className="py-12 px-6 md:px-12 border-t border-brand-detail/10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-xl font-bold tracking-tighter text-brand-text">
-            ANA BARRETO <span className="font-light">DIGITAL</span>
+            <a href="#" className="hover:opacity-80 transition-opacity">
+              ANA BARRETO <span className="font-light">DIGITAL</span>
+            </a>
           </div>
           
           <div className="flex gap-6">
@@ -694,14 +698,24 @@ export default function App() {
       </footer>
 
       {/* Floating WhatsApp Button */}
-      <a 
+      <motion.a 
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         href={CONTACT_WHATSAPP} 
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[60]"
+        className="fixed bottom-6 right-6 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:shadow-[0_0_35px_rgba(37,211,102,0.7)] transition-all z-[60] group overflow-hidden"
       >
-        <img src="https://empurion.com.br/wp-content/uploads/2026/03/whatsapp.png" alt="WhatsApp" className="w-8 h-8" referrerPolicy="no-referrer" />
-      </a>
+        {/* Shine lighting effect */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+        
+        <img src="https://empurion.com.br/wp-content/uploads/2026/03/whatsapp.png" alt="WhatsApp" className="w-8 h-8 relative z-10" referrerPolicy="no-referrer" />
+        
+        {/* Pulse glow effect */}
+        <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 pointer-events-none" />
+      </motion.a>
     </div>
   );
 }
