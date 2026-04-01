@@ -76,8 +76,12 @@ export const PORTFOLIO: PortfolioItem[] = [
     id: '1',
     title: 'Vídeo Institucional',
     category: 'videomaker',
-    imageUrl: 'https://lh3.googleusercontent.com/d/1yfzIsVTlbCtd48O_1eKA14QI22SM6mGn',
+    imageUrl: 'https://lh3.googleusercontent.com/d/1nnMvjzq96nnpySPNmoowwNyvzgUXKAEG',
     videoUrl: 'https://empurion.com.br/wp-content/uploads/2026/03/Institucional-AB.mp4',
+    images: [
+      'https://lh3.googleusercontent.com/d/1nnMvjzq96nnpySPNmoowwNyvzgUXKAEG',
+      'https://lh3.googleusercontent.com/d/1l-8xizyo4474JcKyajjvI1LubriXMSp1'
+    ],
     description: 'Produção de um vídeo institucional com o objetivo de apresentar a marca, seus valores, diferenciais e posicionamento no mercado. O vídeo será utilizado para fortalecer a presença digital e gerar conexão com o público-alvo. Entregas incluem: roteiro, captação de imagens, edição e versão final otimizada para redes sociais e site.'
   },
   {

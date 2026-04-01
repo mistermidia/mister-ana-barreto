@@ -126,11 +126,11 @@ const LogoMarquee = () => {
           
           const targetUrl = targetMap[logo];
           const content = (
-            <div className="flex-shrink-0 w-32 h-16 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+            <div className="flex-shrink-0 w-32 h-16 flex items-center justify-center grayscale-[0.6] opacity-40 hover:grayscale-0 hover:opacity-100 hover:scale-110 hover:brightness-125 transition-all duration-700 ease-in-out">
               <img 
                 src={logo} 
                 alt="Client Logo" 
-                className="max-w-full max-h-full object-contain"
+                className="max-w-full max-h-full object-contain drop-shadow-sm hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] transition-all duration-700"
                 referrerPolicy="no-referrer"
               />
             </div>
